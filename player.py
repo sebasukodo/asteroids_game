@@ -1,6 +1,6 @@
 import pygame
 from circleshape import CircleShape
-from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED, PLAYER_SPEED, PLAYER_SHOOT_SPEED, SHOT_RADIUS, PLAYER_SHOOT_COOLDOWN, PLAYER_LIVES, COLOR_IN_GAME
+from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED, PLAYER_SPEED, PLAYER_SHOOT_SPEED, SHOT_RADIUS, PLAYER_SHOOT_COOLDOWN, PLAYER_LIVES, COLOR_IN_GAME, GAME_VOLUME
 
 class Player(CircleShape):
     def __init__(self, x, y):
@@ -8,11 +8,17 @@ class Player(CircleShape):
         self.rotation = 0
         self.timer = 0
         self.lives = PLAYER_LIVES
+
+        # stats variables
         self.hit_count = 0
         self.kill_count = 0
         self.shots_fired = 0
         self.health_earned = 0
         self.score = 0
+
+        # sound variables
+        self.shooting_sound = pygame.mixer.Sound("sounds/shooting.ogg")
+        self.shooting_sound.set_volume(GAME_VOLUME)
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -52,6 +58,7 @@ class Player(CircleShape):
             shot = Shot(self.position[0], self.position[1], SHOT_RADIUS)
             shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation)*PLAYER_SHOOT_SPEED
             self.shots_fired += 1
+            self.shooting_sound.play()
         self.timer = PLAYER_SHOOT_COOLDOWN
 
 class Shot(CircleShape):
