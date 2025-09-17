@@ -48,9 +48,7 @@ def run_game(screen):
                 asteroid.kill()
                 player.lives -= 1
                 if player.lives <= 0:
-                    print("Game over!")
-                    print(f"You destroyed {player.kill_count} asteroids while hitting {player.hit_count}")
-                    return
+                    return [player.hit_count, player.kill_count]
 
                 for heart in hearts:
                     heart.update_hearts(player.lives)
