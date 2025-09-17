@@ -1,5 +1,5 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_MAX_LIVES, ASTEROID_KINDS, ASTEROID_MIN_RADIUS
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_MAX_LIVES, GAME_VOLUME
 from player import Player, Shot
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
@@ -30,7 +30,10 @@ def run_game(screen):
     dt = 0
     clock = pygame.time.Clock()
 
+    # background image and sounds
     background_image = pygame.image.load("img/game_bg.jpg").convert()
+    damage_sound = pygame.mixer.Sound("sounds/life_loss.ogg")
+    damage_sound.set_volume(GAME_VOLUME)
     
     # Game Start
     while True:
@@ -47,6 +50,9 @@ def run_game(screen):
 
         for asteroid in asteroids:
             if asteroid.check_collisions(player):
+                # play sound
+                damage_sound.play()
+
                 # destroy asteroid and reduce player life
                 asteroid.kill()
                 player.lives -= 1
