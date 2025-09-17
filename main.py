@@ -5,6 +5,7 @@ from player import Player, Shot
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from hearts import Heart
+from game_menu import menu
 
 def main():
     print("Starting Asteroids!")
@@ -35,10 +36,17 @@ def main():
     for heart in hearts:
         heart.update_hearts(player.lives)
 
-    clock = pygame.time.Clock()
-    dt = 0
+    
 
+    # Main Menu Screen
+    menu(screen)
+
+    dt = 0
+    clock = pygame.time.Clock()
+    
+    # Game Start
     while True:
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
