@@ -1,15 +1,51 @@
 import pygame
-from game_menu import Button
+from game_menu import Rectangle
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
+
+class StatsWindow(Rectangle):
+    def __init__(self, x, y, width, height, stats_list):
+        super().__init__(x, y, width, height)
+        self.stats_list = stats_list
+
+    def draw(self, screen, text):
+        stats_text = self.get_stats().split("\n")
+
+        line_height = self.font.get_linesize()
+        total_line_heigth = len(stats_text)*line_height
+
+        y = self.rect.y + (self.rect.height - total_line_heigth) // 2
+
+        # render text and draw text
+        for line in stats_text:
+            text_surface = self.font.render(line, True, (255,255,255))
+            text_rect = text_surface.get_rect(centerx=self.rect.centerx, y=y)
+            screen.blit(text_surface, text_rect)
+            y += line_height
+
+    def update(self, dt):
+        pass
+    
+    def get_stats(self):
+        text = "=============STATS=============\n"
+        text += f"Final Score: {self.stats_list[4]}\n\n"
+        text += f"- You hit {self.stats_list[0]} asteroids.\n"
+        text += f"- You destroyed {self.stats_list[1]} small asteroids.\n"
+        text += f"- You fired {self.stats_list[2]} shots in total.\n"
+        text += f"- You earned {self.stats_list[3]} extra lives.\n"
+        return text
 
 def respawn_menu(screen, player_stats):
     clock = pygame.time.Clock()
     dt = 0
 
-    button_width = 300
-    button_height = 100
-    start_button = Button((SCREEN_WIDTH - button_width)/2, (SCREEN_HEIGHT - button_height)/2, button_width, button_height)
-    exit_button = Button((SCREEN_WIDTH - button_width)/2, (SCREEN_HEIGHT - button_height + 250)/2, button_width, button_height)    
+    button_width = 250
+    button_height = 75
+    start_button = Rectangle((SCREEN_WIDTH - button_width) // 2, (SCREEN_HEIGHT - button_height + 200) // 2, button_width, button_height)
+    exit_button = Rectangle((SCREEN_WIDTH - button_width) // 2, (SCREEN_HEIGHT - button_height + 400) // 2, button_width, button_height)
+    
+    stats_width = 600
+    stats_heigth = 400
+    stats_window = StatsWindow((SCREEN_WIDTH - stats_width)// 2, (SCREEN_HEIGHT - stats_heigth - 200)// 2,  stats_width, stats_heigth, player_stats)
 
     while True:
 
@@ -18,6 +54,8 @@ def respawn_menu(screen, player_stats):
                 return False
 
         screen.fill([0,0,0])
+
+        stats_window.draw(screen, "Stats")
 
         if start_button.update(dt):
             return True

@@ -12,6 +12,7 @@ class Player(CircleShape):
         self.kill_count = 0
         self.shots_fired = 0
         self.health_earned = 0
+        self.score = 0
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
