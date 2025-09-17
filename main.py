@@ -1,6 +1,8 @@
 import pygame
+import sys
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
-from game_menu import menu
+from game_menu import game_menu
+from respawn_menu import respawn_menu
 from game_run import run_game
 
 def main():
@@ -12,13 +14,26 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("セバスコード's Asteroid Game") 
 
-    while True:
+    running = True
+    while running:
         # Main Menu Screen
-        menu(screen)
 
-        # Game Screen
-        run_game(screen)
+        exit_game = game_menu(screen)
+        if not exit_game:
+            break
 
+        respawn = True
+        while respawn:
+            # run game
+            player_stats = run_game(screen)
+
+            # respawn game
+            respawn = respawn_menu(screen, player_stats)
+
+        # mouse input after pressing back to menu causes game to exit without delay
+        pygame.time.delay(150)
+
+    sys.exit()
 
 if __name__ == "__main__":
     main()

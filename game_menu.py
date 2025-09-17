@@ -1,6 +1,4 @@
 import pygame
-import pygame.freetype
-import sys
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 
 class Rectangle:
@@ -32,7 +30,7 @@ class Rectangle:
     def in_area(self, point):
         return self.rect.collidepoint(point)
 
-def menu(screen):
+def game_menu(screen):
     clock = pygame.time.Clock()
     dt = 0
 
@@ -51,11 +49,11 @@ def menu(screen):
         screen.fill([0,0,0])
 
         if start_button.update(dt):
-            return
+            return True
         start_button.draw(screen, "Start Game")
 
         if exit_button.update(dt):
-            sys.exit()
+            return False
         exit_button.draw(screen, "Exit Game")
 
         pygame.display.flip()
