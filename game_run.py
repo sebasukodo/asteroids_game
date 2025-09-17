@@ -71,8 +71,8 @@ def run_game(screen):
                     # after every 20 hits gain a life
                     if player.hit_count % 20 == 0 and player.lives <= PLAYER_MAX_LIVES:
                         player.lives += 1
+                        player.health_earned += 1
                         for heart in hearts:
-                            player.health_earned += 1
                             heart.update_hearts(player.lives)
 
                     # only small ones count as dead

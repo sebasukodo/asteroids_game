@@ -32,11 +32,17 @@ class StatsWindow(Rectangle):
         pass
     
     def get_stats(self):
+
+        accuracy = 0
+        if self.stats_list[2] > 0:
+            accuracy = (self.stats_list[0]/self.stats_list[2])*100
+
         text = "=============STATS=============\n"
         text += f"Final Score: {self.stats_list[4]}\n\n"
-        text += f"- You hit {self.stats_list[0]} asteroids.\n"
         text += f"- You destroyed {self.stats_list[1]} small asteroids.\n"
+        text += f"- You hit {self.stats_list[0]} asteroids.\n"
         text += f"- You fired {self.stats_list[2]} shots in total.\n"
+        text += f"- Your accuracy was {accuracy:.2f}%\n"
         text += f"- You earned {self.stats_list[3]} extra lives.\n"
         return text
 
