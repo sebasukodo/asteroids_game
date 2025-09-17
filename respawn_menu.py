@@ -6,11 +6,10 @@ def respawn_menu(screen, player_stats):
     clock = pygame.time.Clock()
     dt = 0
 
-    start_button_width = 300
-    start_button_height = 100
-    start_button = Button((SCREEN_WIDTH - start_button_width)/2, (SCREEN_HEIGHT - start_button_height)/2, start_button_width, start_button_height)
-
-    exit_button = Button((SCREEN_WIDTH - start_button_width)/2, (SCREEN_HEIGHT - start_button_height + 250)/2, start_button_width, start_button_height)    
+    button_width = 300
+    button_height = 100
+    start_button = Button((SCREEN_WIDTH - button_width)/2, (SCREEN_HEIGHT - button_height)/2, button_width, button_height)
+    exit_button = Button((SCREEN_WIDTH - button_width)/2, (SCREEN_HEIGHT - button_height + 250)/2, button_width, button_height)    
 
     while True:
 

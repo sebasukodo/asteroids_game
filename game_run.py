@@ -48,7 +48,7 @@ def run_game(screen):
                 asteroid.kill()
                 player.lives -= 1
                 if player.lives <= 0:
-                    return [player.hit_count, player.kill_count]
+                    return [player.hit_count, player.kill_count, player.shots_fired, player.health_earned]
 
                 for heart in hearts:
                     heart.update_hearts(player.lives)
@@ -64,6 +64,7 @@ def run_game(screen):
                     if player.hit_count % 20 == 0 and player.lives <= PLAYER_MAX_LIVES:
                         player.lives += 1
                         for heart in hearts:
+                            player.health_earned += 1
                             heart.update_hearts(player.lives)
 
                     if asteroid_dead:
