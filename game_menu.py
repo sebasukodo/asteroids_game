@@ -1,5 +1,5 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, COLOR_MENU
 
 class Rectangle:
     def __init__(self, x, y, width, height):
@@ -10,10 +10,16 @@ class Rectangle:
         self.font = pygame.font.Font('freesansbold.ttf', 32)
 
     def draw(self, screen, text):
-        pygame.draw.rect(screen, [255,255,255], self.rect, 2)
+
+        # make background of rectangle transparent with value 150
+        transparent_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
+        transparent_surface.fill((0, 0, 0, 150)) 
+        screen.blit(transparent_surface, self.position)
+
+        pygame.draw.rect(screen, COLOR_MENU, self.rect, 2)
 
         #render text
-        text_surface = self.font.render(text, True, (255, 255, 255))
+        text_surface = self.font.render(text, True, COLOR_MENU)
         text_rect = text_surface.get_rect(center=self.rect.center)
 
         # draw text
@@ -31,6 +37,9 @@ class Rectangle:
         return self.rect.collidepoint(point)
 
 def game_menu(screen):
+
+    background_menu = pygame.image.load("img/main_menu.jpg").convert()
+
     clock = pygame.time.Clock()
     dt = 0
 
@@ -46,7 +55,7 @@ def game_menu(screen):
             if event.type == pygame.QUIT:
                 return False
 
-        screen.fill([0,0,0])
+        screen.blit(background_menu, (0,0))
 
         if start_button.update(dt):
             return True
