@@ -32,7 +32,6 @@ def main():
     # create all hearts
     for i in range(PLAYER_MAX_LIVES):
         Heart(100+i*20, 20, i+1)
-
     for heart in hearts:
         heart.update_hearts(player.lives)
 
@@ -69,8 +68,8 @@ def main():
                     shot.kill()
 
                     player.hit_count += 1
-                    # after every 25 hits gain a life
-                    if player.hit_count % 25 == 0:
+                    # after every 20 hits gain a life
+                    if player.hit_count % 20 == 0 and player.lives <= PLAYER_MAX_LIVES:
                         player.lives += 1
                         for heart in hearts:
                             heart.update_hearts(player.lives)
