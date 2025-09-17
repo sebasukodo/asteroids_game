@@ -29,6 +29,8 @@ def run_game(screen):
 
     dt = 0
     clock = pygame.time.Clock()
+
+    background_image = pygame.image.load("img/game_bg.jpg").convert()
     
     # Game Start
     while True:
@@ -36,7 +38,8 @@ def run_game(screen):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        screen.fill([0,0,0])
+            
+        screen.blit(background_image, (-500,0))
 
         updatable.update(dt)
         for draw in drawable:
@@ -58,7 +61,9 @@ def run_game(screen):
                 if asteroid.check_collisions(shot):
                     
                     # add scorepoints to player
-                    player.score += 50 - asteroid.radius
+                    player.score += 40 - asteroid.radius // 2
+                    print(f"50 - {asteroid.radius}")
+                    print(player.score)
 
                     # delete asteroid and shot
                     asteroid_dead = asteroid.split()
