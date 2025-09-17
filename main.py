@@ -16,7 +16,7 @@ def main():
     pygame.display.set_caption("セバスコード's Asteroid Game") 
 
     # adding background music
-    pygame.mixer.music.load("sounds/menu_bg.ogg")
+    pygame.mixer.music.load("sounds/LateNight1.ogg")
     pygame.mixer.music.set_volume(GAME_BG_VOLUME)
     pygame.mixer.music.play(-1)
 
