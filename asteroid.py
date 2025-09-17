@@ -24,4 +24,5 @@ class Asteroid(CircleShape):
 
         ast1.velocity = self.velocity.rotate(random_angle)*1.2
         ast2.velocity = self.velocity.rotate(-random_angle)*1.2
+
         return False

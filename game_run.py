@@ -1,5 +1,5 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_MAX_LIVES
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_MAX_LIVES, ASTEROID_KINDS, ASTEROID_MIN_RADIUS
 from player import Player, Shot
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
@@ -48,7 +48,7 @@ def run_game(screen):
                 asteroid.kill()
                 player.lives -= 1
                 if player.lives <= 0:
-                    return [player.hit_count, player.kill_count, player.shots_fired, player.health_earned]
+                    return [player.hit_count, player.kill_count, player.shots_fired, player.health_earned, player.score]
 
                 for heart in hearts:
                     heart.update_hearts(player.lives)
@@ -56,6 +56,11 @@ def run_game(screen):
             for shot in shots:
                 # split or destroy asteroid and increase player counters accordingly after collision
                 if asteroid.check_collisions(shot):
+                    
+                    # add scorepoints to player
+                    player.score += 50 - asteroid.radius
+
+                    # delete asteroid and shot
                     asteroid_dead = asteroid.split()
                     shot.kill()
 
@@ -67,6 +72,7 @@ def run_game(screen):
                             player.health_earned += 1
                             heart.update_hearts(player.lives)
 
+                    # only small ones count as dead
                     if asteroid_dead:
                         player.kill_count += 1
 
