@@ -1,5 +1,5 @@
 import pygame
-from game_menu import Rectangle
+from game_menu import Button
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 
 def respawn_menu(screen, player_stats):
@@ -8,9 +8,9 @@ def respawn_menu(screen, player_stats):
 
     start_button_width = 300
     start_button_height = 100
-    start_button = Rectangle((SCREEN_WIDTH - start_button_width)/2, (SCREEN_HEIGHT - start_button_height)/2, start_button_width, start_button_height)
+    start_button = Button((SCREEN_WIDTH - start_button_width)/2, (SCREEN_HEIGHT - start_button_height)/2, start_button_width, start_button_height)
 
-    exit_button = Rectangle((SCREEN_WIDTH - start_button_width)/2, (SCREEN_HEIGHT - start_button_height + 250)/2, start_button_width, start_button_height)    
+    exit_button = Button((SCREEN_WIDTH - start_button_width)/2, (SCREEN_HEIGHT - start_button_height + 250)/2, start_button_width, start_button_height)    
 
     while True:
 
