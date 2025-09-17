@@ -1,6 +1,6 @@
 import pygame
 from game_menu import Rectangle
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, COLOR_MENU
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, COLOR_MENU, GAME_VOLUME
 
 class StatsWindow(Rectangle):
     def __init__(self, x, y, width, height, stats_list):

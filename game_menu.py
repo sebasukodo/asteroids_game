@@ -1,5 +1,5 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, COLOR_MENU
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, COLOR_MENU, GAME_VOLUME
 
 class Rectangle:
     def __init__(self, x, y, width, height):
@@ -8,6 +8,8 @@ class Rectangle:
         self.width = width
         self.height = height
         self.font = pygame.font.Font('freesansbold.ttf', 32)
+        self.clicking_sound = pygame.mixer.Sound("sounds/click_item.ogg")
+        self.clicking_sound.set_volume(GAME_VOLUME)
 
     def draw(self, screen, text):
 
@@ -29,7 +31,8 @@ class Rectangle:
         mouse_click = pygame.mouse.get_pressed()
         mouse_pos = pygame.mouse.get_pos()
 
-        if mouse_click[0] and self.in_area(mouse_pos): 
+        if mouse_click[0] and self.in_area(mouse_pos):
+            self.clicking_sound.play()
             return True
         return False
 
