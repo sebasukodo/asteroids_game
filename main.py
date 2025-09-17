@@ -1,10 +1,9 @@
 import pygame
 import sys
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_MAX_LIVES
-from player import Player, Shot
-from asteroid import Asteroid
-from asteroidfield import AsteroidField
-from hearts import Heart
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from game_menu import game_menu
+from respawn_menu import respawn_menu
+from game_run import run_game
 
 def main():
     print("Starting Asteroids!")
@@ -13,74 +12,28 @@ def main():
 
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption("セバスコード's Asteroid Game") 
 
-    updatable = pygame.sprite.Group()
-    drawable = pygame.sprite.Group()
-    asteroids = pygame.sprite.Group()
-    shots = pygame.sprite.Group()
-    hearts = pygame.sprite.Group()
+    running = True
+    while running:
+        # Main Menu Screen
 
-    Player.containers = (updatable, drawable)
-    Asteroid.containers = (asteroids, updatable, drawable)
-    AsteroidField.containers = (updatable)
-    Shot.containers = (shots, updatable, drawable)
-    Heart.containers = (hearts, drawable)
+        exit_game = game_menu(screen)
+        if not exit_game:
+            break
 
-    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-    AsteroidField()
+        respawn = True
+        while respawn:
+            # run game
+            player_stats = run_game(screen)
 
-    # create all hearts
-    for i in range(PLAYER_MAX_LIVES):
-        Heart(100+i*20, 20, i+1)
-    for heart in hearts:
-        heart.update_hearts(player.lives)
+            # respawn game
+            respawn = respawn_menu(screen, player_stats)
 
-    clock = pygame.time.Clock()
-    dt = 0
+        # mouse input after pressing back to menu causes game to exit without delay
+        pygame.time.delay(150)
 
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return
-        screen.fill([0,0,0])
-
-        updatable.update(dt)
-        for draw in drawable:
-            draw.draw(screen)
-
-        for asteroid in asteroids:
-            if asteroid.check_collisions(player):
-                # destroy asteroid and reduce player life
-                asteroid.kill()
-                player.lives -= 1
-                if player.lives <= 0:
-                    print("Game over!")
-                    print(f"You destroyed {player.kill_count} asteroids while hitting {player.hit_count}")
-                    sys.exit()
-
-                for heart in hearts:
-                    heart.update_hearts(player.lives)
-
-            for shot in shots:
-                # split or destroy asteroid and increase player counters accordingly after collision
-                if asteroid.check_collisions(shot):
-                    asteroid_dead = asteroid.split()
-                    shot.kill()
-
-                    player.hit_count += 1
-                    # after every 20 hits gain a life
-                    if player.hit_count % 20 == 0 and player.lives <= PLAYER_MAX_LIVES:
-                        player.lives += 1
-                        for heart in hearts:
-                            heart.update_hearts(player.lives)
-
-                    if asteroid_dead:
-                        player.kill_count += 1
-
-        pygame.display.flip()
-        dt = clock.tick(60)/1000
-
-
+    sys.exit()
 
 if __name__ == "__main__":
     main()
