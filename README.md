@@ -6,6 +6,15 @@ It was built using **Python** and **Pygame** as part of the course
 
 ---
 
+## License
+
+- **Code, images, and most sounds**: [MIT License](./LICENSE)  
+- **Song "LateNight1"**:  
+  LateNight1 © 2023 by Sebastian Lein is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).  
+  This license applies only to the file `/sounds/LateNight1.ogg`.  
+
+---
+
 ## 📌 Versions
 
 - **v1.0.0**  
@@ -23,6 +32,11 @@ It was built using **Python** and **Pygame** as part of the course
     - **+10 points** for destroying a large asteroid  
     - **+20 points** for destroying a medium asteroid  
     - **+30 points** for destroying a small asteroid  
+
+- **v2.1.0**  
+  Audio update:
+  - Added background music (*LateNight1*, licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)) 
+  - Added sound effects for gameplay events      
 
 ---
 
