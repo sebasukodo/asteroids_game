@@ -32,7 +32,7 @@ It was built using **Python** and **Pygame** as part of the course
    ```bash
    git clone https://github.com/sebasukodo/asteroids_game.git
    cd asteroids_game
-````
+   ```
 
 2. Install dependencies:
 
